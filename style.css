@@ -1,1 +1,21 @@
+.navbar {
+  display: block;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
 
+.navbar p {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.main {
+  margin-top: 30px; /* Added to avoid content overlay */
+}
