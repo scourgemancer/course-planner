@@ -10,9 +10,16 @@
   <title>Course Planner</title>
 
   <link type="text/css"; rel="stylesheet"; href="style.css"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="jquery-ui.min.js"></script>
   <script type="text/javascript" src="main.js"></script>
+  <script>
+    $( function() {
+      $( "#accordion" ).accordion({
+        collapsible: true
+      });
+    });
+  </script>
 </head>
 
   
@@ -26,11 +33,18 @@
   
   
 <div class="main">
-  <div class="browse">
+  <div class="browse" id="accordion">
+    
   </div>
+  
+  
   <div class="search">
+    
   </div>
+  
+  
   <div class="make">
+    
   </div>
 </div>
 </body>
