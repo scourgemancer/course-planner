@@ -17,9 +17,10 @@ html {
 }
 
 .navbar p {
-  float: right;
   color: white;
-  padding-top: 1em;
+  font-size: 1.35em;
+  float: right;
+  padding-top: 0.3em;
   padding-right: 2em;
 }
 
@@ -37,4 +38,15 @@ html {
 
 .main {
   margin-top: 5em; /* Added to avoid content overlay */
+}
+
+#searchBar {
+  background-image: url("./searchIcon.png");
+  background-repeat: no-repeat;
+  background-position: 0.5em;
+  font-size: 1.3em;
+  padding: 0.4em 2em 0.4em 2em;
+  border: 0.05em solid #ddd;
+  border-radius: 0.3em;
+  width: 30%;
 }
