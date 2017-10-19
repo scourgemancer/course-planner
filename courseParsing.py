@@ -4,6 +4,9 @@
 
 import sys
 import bs4
+import os
+import errno
+import json
 from selenium import webdriver
 
 
@@ -52,13 +55,26 @@ def parse_term(term):  # parses all available course data from Skidmore for the 
 
 
 def save(term_name,  table_rows):  # saves data from the scraped table rows in a JSON format
-    return
+    path = 'data/' + term_name + '.txt'
+
+    try:  # makes the file to write to
+        os.remove(path)  # delete the file if it exists, before saving
+    except OSError as e:
+        if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
+            raise  # re-raise the exception if a different error occurred
+    os.makedirs(path)
+
+    # encodes data into JSON format
+    data = 'JSON'  # TODO
+
+    with open(path, 'w') as f:  # writes the data to the file
+        json.dump(data, f)
 
 
 def main():
     print('Gathering data...')
     if len(sys.argv) > 0:  # then only parse a specific term
-        term = sys.argv[1:]
+        term = sys.argv[0]
         parse_term(term)
     else:  # we parse all available terms
         parse_all()
