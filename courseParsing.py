@@ -1,7 +1,5 @@
-#! python3
-# courseParsing.py - Parses data from the Skidmore schedule search website
-#                      and saves it all in a JSON format
-
+#!/usr/bin/env python
+"""courseParsing.py - Parses data from the Skidmore Master Schedule and saves it as JSON strings"""
 import sys
 import bs4
 import os
@@ -10,7 +8,8 @@ from selenium import webdriver
 from pathlib import Path
 
 
-def parse_all():  # calls parse_term() for each term it finds available
+def parse_all():
+    """Calls parse_term() for each term it finds available."""
     driver = webdriver.Firefox()  # opens Firefox
     driver.get('https://www2.skidmore.edu/studentsystem/masterSchedule/index.cfm')
     try:  # get all of the available terms
@@ -26,7 +25,8 @@ def parse_all():  # calls parse_term() for each term it finds available
         return
 
 
-def parse_term(term):  # parses all available course data from Skidmore for the given term
+def parse_term(term):
+    """Parses all available course data from Skidmore for the given term and then saves it."""
     print('Parsing data for ' + term + ':')
     driver = webdriver.Firefox()  # opens Firefox
     driver.get('https://www2.skidmore.edu/studentsystem/masterSchedule/index.cfm')
@@ -77,26 +77,26 @@ def parse_term(term):  # parses all available course data from Skidmore for the 
         for x in range(len(class_attributes)):
             cleaned_class[class_attributes[x]] = attributes[x]
         cleaned_classes.append(cleaned_class)
-    save(term, cleaned_departments, cleaned_class_attributes, cleaned_classes)
+    save(term, cleaned_departments, cleaned_classes)
 
 
-def save(term_name, departments, classes):  # saves data from the scraped table rows in a JSON format
-        print('Saving data...')
-        path = Path('data/' + term_name)
-        if not path.is_dir():  # makes the folder to hold the term data in
-            os.makedirs(path)
+def save(term_name, departments, classes):
+    """Encodes provided data to a JSON format and then saves it to a file."""
+    print('Saving data...')
+    path = Path('data/' + term_name)
+    if not path.is_dir():  # makes the folder to hold the term data in
+        os.makedirs(str(path))
 
-        with open(path + '/departments.json', 'w') as file:
-            json.dump(departments, file)
+    with open(str(path) + '/departments.json', 'w') as file:
+        json.dump(departments, file)
 
-        with open(path + '/classes.json', 'w') as file:
-            json.dump(classes, file)
+    with open(str(path) + '/classes.json', 'w') as file:
+        json.dump(classes, file)
 
 
 def main():
-    print('Gathering data...')
-    if len(sys.argv) > 0:  # then only parse a specific term
-        term = sys.argv[0]
+    if len(sys.argv) > 1:  # then only parse a specific term
+        term = sys.argv[-1]
         parse_term(term)
     else:  # we parse all available terms
         parse_all()
