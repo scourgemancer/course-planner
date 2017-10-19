@@ -24,35 +24,57 @@ def parse_all():  # calls parse_term() for each term it finds available
 
 
 def parse_term(term):  # parses all available course data from Skidmore for the given term
+    print('Parsing data for ' + term + ':')
     driver = webdriver.Firefox()  # opens Firefox
     driver.get('https://www2.skidmore.edu/studentsystem/masterSchedule/index.cfm')
     try:  # selects the term
         term_selector = driver.find_element_by_xpath("//option[text()='" + term + "']")
         term_selector.click()
     except:
+        driver.quit()
         print('Was unable to find the option for: ' + term)
         return
-    try:  # navigates to the page with all of the term data
-        button = driver.find_element_by_id('Submit')
-        button.click()
-        all_departments = driver.find_element_by_xpath("//option[text()='All Departments']")
-        all_departments.click()
-        button = driver.find_element_by_id('Submit')
-        button.click()
-    except:
-        print('Contact a developer: The course website has changed and this program needs to be updated')
-        return
+
+    # navigates to the page with all of the term data
+    button = driver.find_element_by_id('Submit')
+    button.click()
+    print('Getting departments...')
+    all_departments = driver.find_element_by_xpath("//option[text()='All Departments']")
+    all_departments.click()
+    button = driver.find_element_by_id('Submit')
+    button.click()
 
     # finished navigating to the desired page; now scrape the html with Beautiful Soup
+    print('Loading all class data for ' + term + '...')
     html = driver.page_source
     driver.quit()
-    coarse_soup = bs4.BeautifulSoup(html)
+    coarse_soup = bs4.BeautifulSoup(html, "html.parser")
     course_table_rows = coarse_soup.select('.msTableGeneralTop tbody tr')
     if len(course_table_rows) == 0:
-        print('Contact a developer: The course website has changed and this program needs to be updated')
+        print('Contact3 a developer: The course website has changed and this program needs to be updated')
         return
-    save(term, course_table_rows)
-    # TODO - GRAB THE DEPARTMENT IDS AND NAMES AS WELL
+    departments = coarse_soup.select('#subj_code option')
+
+    # now clean the scraped data before saving it
+    print('Cleaning all parsed data...')
+    cleaned_departments = {}
+    for dep in departments:
+        cleaned_departments[dep['value']] = str(dep.string)
+    del course_table_rows[0]  # deletes an unwanted row from the top that gets scraped as well
+    class_attributes = [attr for attr in course_table_rows[0].contents if str(attr) != '\n']
+    for x in range(len(class_attributes)):
+        class_attributes[x] = str(class_attributes[x].string)
+    del course_table_rows[0]  # now we're done with the row that lists the column names
+    cleaned_classes = []
+    for soupy_class in course_table_rows:
+        attributes = [attr.string.strip() for attr in soupy_class.select('div')]
+        if len(class_attributes) != len(attributes):
+            raise Exception('Table rows are of inconsistent length')
+        cleaned_class = {}
+        for x in range(len(class_attributes)):
+            cleaned_class[class_attributes[x]] = attributes[x]
+        cleaned_classes.append(cleaned_class)
+    save(term, cleaned_departments, cleaned_class_attributes, cleaned_classes)
 
 
 def save(term_name, departments, classes):  # saves data from the scraped table rows in a JSON format
