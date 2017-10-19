@@ -16,10 +16,13 @@ def parse_all():  # calls parse_term() for each term it finds available
     try:  # get all of the available terms
         terms_container = driver.find_element_by_id('term_code')
         terms = terms_container.find_elements_by_tag_name('option')
+        terms = [term.text for term in terms]
+        driver.quit()
         for term in terms:
-            parse_term(term.text)  # parses each term one-by-one
+            parse_term(term)  # parses each term one-by-one
     except:
-        print('Contact a developer: The course website has changed and this program needs to be updated')
+        driver.quit()
+        print('Contact1 a developer: The course website has changed and this program needs to be updated')
         return
 
 
