@@ -8,35 +8,39 @@ from selenium import webdriver
 
 
 def parse_all():  # calls parse_term() for each term it finds available
-    driver = webdriver.Firefox()  # get to the page with all the available terms on it with Selenium, through Firefox
+    driver = webdriver.Firefox()  # opens Firefox
     driver.get('https://www2.skidmore.edu/studentsystem/masterSchedule/index.cfm')
-    try:
+    try:  # get all of the available terms
         terms_container = driver.find_element_by_id('term_code')
         terms = terms_container.find_elements_by_tag_name('option')
         for term in terms:
-            parse_term(term.text)
+            parse_term(term.text)  # parses each term one-by-one
     except:
         print('Contact a developer: The course website has changed and this program needs to be updated')
         return
 
 
 def parse_term(term):  # parses all available course data from Skidmore for the given term
-    driver = webdriver.Firefox()  # navigate to the page with all course info on it with Selenium, through Firefox
+    driver = webdriver.Firefox()  # opens Firefox
     driver.get('https://www2.skidmore.edu/studentsystem/masterSchedule/index.cfm')
-    try:
+    try:  # selects the term
         term_selector = driver.find_element_by_xpath("//option[text()='" + term + "']")
+        term_selector.click()
     except:
         print('Was unable to find the option for: ' + term)
         return
-    term_selector.click()
-    button = driver.find_element_by_id('Submit')
-    button.click()
-    all_departments = driver.find_element_by_xpath("//option[text()='All Departments']")
-    all_departments.click()
-    button = driver.find_element_by_id('Submit')
-    button.click()
+    try:  # navigates to the page with all of the term data
+        button = driver.find_element_by_id('Submit')
+        button.click()
+        all_departments = driver.find_element_by_xpath("//option[text()='All Departments']")
+        all_departments.click()
+        button = driver.find_element_by_id('Submit')
+        button.click()
+    except:
+        print('Contact a developer: The course website has changed and this program needs to be updated')
+        return
 
-    # navigated to the page, now pull the html with Beautiful Soup
+    # finished navigating to the desired page; now scrape the html with Beautiful Soup
     html = driver.page_source
     driver.quit()
     coarse_soup = bs4.BeautifulSoup(html)
