@@ -17,6 +17,7 @@
     $( function() {
       $( "#accordion" ).accordion({
         collapsible: true
+        active: false,
       });
     });
   </script>
@@ -26,9 +27,9 @@
 <body>
 <div class="navbar">
   <h1>Course Planner</h1>
-  <p id="browse">Browse Courses</p>
-  <p id="search">Search Courses</p>
   <p id="make">Make a Schedule</p>
+  <p id="search">Search Courses</p>
+  <p id="browse">Browse Courses</p>
 </div>
   
   
@@ -41,8 +42,19 @@
   <div class="search" align="center">
     <input type="text" id="searchBar" placeholder="Search...">
     
-    <div class="advancedSearch" id="acordion">
-      <!-- TODO -->
+    <div class="advancedSearch" id="accordion">
+      <p id="filterText"> <span class="downArrow">▾</span> Filters</p>
+	  <div>
+        <ul>
+          <p>Hello</p>
+		  <p>there</p>
+		  <p>future</p>
+		  <p>site,</p>
+		  <p>how</p>
+		  <p>you</p>
+		  <p>doin'?</p>
+		</ul>
+	  </div>
     </div>
   </div>
   

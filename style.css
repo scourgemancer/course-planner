@@ -12,19 +12,22 @@ html {
 
 .navbar h1 {
   float: left;
+  position: relative;
+  padding-left: 0.8em;
+  font-size: 1.7em;
+  transform: scaleY(1.5);
   color: white;
-  padding-left: 1.5em;
 }
 
 .navbar p {
   color: white;
-  font-size: 1.35em;
+  font-size: 1.2em;
   float: right;
-  padding-top: 0.3em;
-  padding-right: 2em;
+  padding-top: 0.15em;
+  padding-right: 1.7em;
 }
 
-.navbar #make {
+.navbar #browse {
   color: #f38b00;
 }
 
@@ -32,8 +35,9 @@ html {
   color: #f3c417;
 }
 
-.navbar #browse {
+.navbar #make {
   color: #82bc00;
+  padding-right: 1.5em;
 }
 
 .main {
@@ -49,4 +53,16 @@ html {
   border: 0.05em solid #ddd;
   border-radius: 0.3em;
   width: 30%;
+}
+
+#filterText {
+  position: relative;
+  top: -1.1em;
+  left: -7.5em;
+}
+
+.downArrow {
+  position: relative;
+  top: 0.1em;
+  font-size: 1.3em;
 }
