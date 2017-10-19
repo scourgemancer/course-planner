@@ -52,9 +52,10 @@ def parse_term(term):  # parses all available course data from Skidmore for the 
         print('Contact a developer: The course website has changed and this program needs to be updated')
         return
     save(term, course_table_rows)
+    # TODO - GRAB THE DEPARTMENT IDS AND NAMES AS WELL
 
 
-def save(term_name,  table_rows):  # saves data from the scraped table rows in a JSON format
+def save(term_name, departments, classes):  # saves data from the scraped table rows in a JSON format
     path = 'data/' + term_name + '.txt'
 
     try:  # makes the file to write to
@@ -65,6 +66,7 @@ def save(term_name,  table_rows):  # saves data from the scraped table rows in a
     os.makedirs(path)
 
     # encodes data into JSON format
+    # TODO - maybe try making the JSON be one array per department with an other section for edge cases
     data = 'JSON'  # TODO
 
     with open(path, 'w') as f:  # writes the data to the file
