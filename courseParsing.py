@@ -5,9 +5,9 @@
 import sys
 import bs4
 import os
-import errno
 import json
 from selenium import webdriver
+from pathlib import Path
 
 
 def parse_all():  # calls parse_term() for each term it finds available
@@ -56,21 +56,16 @@ def parse_term(term):  # parses all available course data from Skidmore for the 
 
 
 def save(term_name, departments, classes):  # saves data from the scraped table rows in a JSON format
-    path = 'data/' + term_name + '.txt'
+        print('Saving data...')
+        path = Path('data/' + term_name)
+        if not path.is_dir():  # makes the folder to hold the term data in
+            os.makedirs(path)
 
-    try:  # makes the file to write to
-        os.remove(path)  # delete the file if it exists, before saving
-    except OSError as e:
-        if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
-            raise  # re-raise the exception if a different error occurred
-    os.makedirs(path)
+        with open(path + '/departments.json', 'w') as file:
+            json.dump(departments, file)
 
-    # encodes data into JSON format
-    # TODO - maybe try making the JSON be one array per department with an other section for edge cases
-    data = 'JSON'  # TODO
-
-    with open(path, 'w') as f:  # writes the data to the file
-        json.dump(data, f)
+        with open(path + '/classes.json', 'w') as file:
+            json.dump(classes, file)
 
 
 def main():
