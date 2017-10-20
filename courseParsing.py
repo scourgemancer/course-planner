@@ -87,11 +87,14 @@ def save(term_name, departments, classes):
     if not path.is_dir():  # makes the folder to hold the term data in
         os.makedirs(str(path))
 
-    with open(str(path) + '/departments.json', 'w') as file:
-        json.dump(departments, file)
+    # TODO - commented out below code to simplify debugging
+    print(json.dumps(departments, indent=4))
+    print(json.dumps(classes, indent=4))
+    #with open(str(path) + '/departments.json', 'w') as file:
+    #    json.dump(departments, file)
 
-    with open(str(path) + '/classes.json', 'w') as file:
-        json.dump(classes, file)
+    #with open(str(path) + '/classes.json', 'w') as file:
+    #    json.dump(classes, file)
 
 
 def main():
