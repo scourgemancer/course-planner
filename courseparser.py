@@ -76,9 +76,12 @@ def get_master_schedule_html(term):
         return
 
     # navigates to the page with all of the term data
+    old = driver.page_source
     button = driver.find_element_by_id('Submit')
     button.click()
     print('Getting departments...')
+    while old == driver.page_source:  # wait for the page to load
+        time.sleep(1)
     all_departments = driver.find_element_by_xpath("//option[text()='All Departments']")
     all_departments.click()
     button = driver.find_element_by_id('Submit')
