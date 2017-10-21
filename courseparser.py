@@ -20,10 +20,9 @@ def parse_all():
         for term in terms:
             parse_term(term)  # parses each term one-by-one
     except:
-        driver.quit()
         print('Contact1 a developer: The course website has changed and this program needs to be updated')
-        return
-
+    finally:
+        driver.quit()  # just to make sure that all opened browsers get closed
 
 def parse_term(term):
     """Parses all available course data from Skidmore for the given term and then saves it."""
