@@ -19,8 +19,10 @@ def parse_all():
         terms = terms_container.find_elements_by_tag_name('option')
         terms = [term.text for term in terms]
         driver.quit()
+        print('Parsing terms:')
         for term in terms:
             parse_term(term)  # parses each term one-by-one
+        print('Finished parsing all available terms!')
     except:
         print('Contact a developer: The course website has changed and this program needs to be updated')
     finally:
@@ -58,6 +60,7 @@ def parse_term(term):
             cleaned_class[class_attributes[x]] = attributes[x]
         cleaned_classes.append(cleaned_class)
     save(term, cleaned_departments, cleaned_classes)
+    print('Finished parsing: ' + term + '!')
 
 
 def get_master_schedule_html(term):
@@ -75,12 +78,14 @@ def get_master_schedule_html(term):
     # navigates to the page with all of the term data
     button = driver.find_element_by_id('Submit')
     button.click()
+    print('Getting departments...')
     all_departments = driver.find_element_by_xpath("//option[text()='All Departments']")
     all_departments.click()
     button = driver.find_element_by_id('Submit')
     button.click()
 
     # finished navigating to the desired page; now scrape the html with Beautiful Soup
+    print('Loading all class data for ' + term + '...')
     time.sleep(60*5)
     html = driver.page_source
     driver.quit()
@@ -100,6 +105,7 @@ def save(term_name, departments, classes):
 
     with open(str(path) + '/classes.json', 'w') as file:
         json.dump(classes, file)
+    print('Data saved!')
 
 
 def main():
