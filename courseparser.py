@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""courseParsing.py - Parses data from the Skidmore Master Schedule and saves it as JSON strings"""
+"""courseparser.py - Parses data from the Skidmore Master Schedule and saves it as JSON strings"""
 import sys
 import bs4
 import os
