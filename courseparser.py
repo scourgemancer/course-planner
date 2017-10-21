@@ -92,7 +92,6 @@ def get_master_schedule_html(term):
     time.sleep(60*5)
     html = driver.page_source
     driver.quit()
-    print(len(html))
     return html
 
 
