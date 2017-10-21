@@ -2,6 +2,7 @@
 """courseparser.py - Parses data from the Skidmore Master Schedule and saves it as JSON strings"""
 import sys
 import bs4
+import time
 import os
 import json
 from selenium import webdriver
@@ -23,6 +24,7 @@ def parse_all():
         print('Contact1 a developer: The course website has changed and this program needs to be updated')
     finally:
         driver.quit()  # just to make sure that all opened browsers get closed
+
 
 def parse_term(term):
     """Parses all available course data from Skidmore for the given term and then saves it."""
@@ -48,6 +50,7 @@ def parse_term(term):
 
     # finished navigating to the desired page; now scrape the html with Beautiful Soup
     print('Loading all class data for ' + term + '...')
+    time.sleep(60 * 5)
     html = driver.page_source
     driver.quit()
     coarse_soup = bs4.BeautifulSoup(html, "html.parser")
