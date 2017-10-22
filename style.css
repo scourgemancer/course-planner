@@ -66,3 +66,11 @@ html {
   top: 0.1em;
   font-size: 1.3em;
 }
+
+.accordion-toggle {
+  cursor: pointer;
+}
+
+.accordion-content.default {
+  display: block;
+}

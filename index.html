@@ -13,14 +13,6 @@
   <script src="jquery-3.2.1.min.js"></script>
   <script src="jquery-ui.min.js"></script>
   <script src="main.js"></script>
-  <script>
-    $( function() {
-      $( "#accordion" ).accordion({
-        collapsible: true
-        active: false,
-      });
-    });
-  </script>
 </head>
 
   
@@ -33,18 +25,20 @@
 </div>
   
   
-<div class="main">
-  <div class="browse" id="accordion">
+<div class="main" id="accordion">
+  <h3 class="accordion-toggle">Browse Classes</h3>
+  <div class="accordion-content" class="browse" id="accordion">
     <!-- TODO -->
   </div>
   
   
-  <div class="search" align="center">
+  <h3 class="accordion-toggle">Search Classes</h3>
+  <div class="accordion-content" class="search" align="center">
     <input type="text" id="searchBar" placeholder="Search...">
     
-    <div class="advancedSearch" id="accordion">
-      <p id="filterText"> <span class="downArrow">▾</span> Filters</p>
-	  <div>
+    <div class="accordion-content" class="advancedSearch" id="accordion">
+      <h3 class="accordion-toggle" id="filterText"> <span class="downArrow">▾</span> Filters</h3>
+	  <div class="accordion-content">
         <ul>
           <p>Hello</p>
 		  <p>there</p>
@@ -59,7 +53,8 @@
   </div>
   
   
-  <div class="make">
+  <h3 class="accordion-toggle">Make Schedules</h3>
+  <div class="accordion-content" class="make">
     <!-- TODO -->
   </div>
 </div>
