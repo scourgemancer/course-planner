@@ -1,5 +1,7 @@
-$(document).ready(function($){
-  $('#accordion').find('.accordion-toggle').click(function(){
+/*global $, document*/ //<- is to appease JSLint
+$(document).ready(function ($) {
+  "use strict";
+  $('#accordion').find('.accordion-toggle').click(function () {
     $(this).next().slideToggle('fast');
-  })
+  });
 });

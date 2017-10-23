@@ -20,18 +20,27 @@ html {
 }
 
 .navbar p {
-  color: white;
-  font-size: 1.2em;
+  font-size: 1.3em;
   float: right;
   padding-top: 0.15em;
   padding-right: 1.7em;
 }
 
-.navbar #browse {
+.navbar select {
+  float: right;
+  font-size: 1.2em;
   color: #f38b00;
+  border: 0em;
+  background-color: transparent;
+  margin-top: 1.2em;
+  margin-right: 1.7em;
 }
 
-.navbar #search {
+.navbar select option {
+  color: black;
+}
+
+.navbar #find {
   color: #f3c417;
 }
 
