@@ -19,6 +19,8 @@ def parse_all():
         terms = terms_container.find_elements_by_tag_name('option')
         terms = [term.text for term in terms]
         driver.quit()
+        with open('data/' + '/terms.json', 'w') as file:
+            json.dump(terms, file)
         print('Parsing terms:')
         for term in terms:
             parse_term(term)  # parses each term one-by-one
