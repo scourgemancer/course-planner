@@ -9,49 +9,52 @@
 
   <title>Course Planner</title>
 
-  <link type="text/css"; rel="stylesheet"; href="style.css"/>
+  <link type="text/css" rel="stylesheet" href="style.css"/>
   <script src="jquery-3.2.1.min.js"></script>
   <script src="jquery-ui.min.js"></script>
-  <script src="main.js"></script>
+  <script type="text/javascript" src="data/terms.js"></script>
+  <script type="text/javascript" src="main.js"></script>
 </head>
 
-  
+
 <body>
 <div class="navbar">
   <h1>Course Planner</h1>
   <p id="make">Make a Schedule</p>
   <p id="find">Find Classes</p>
-  <select>
-    <option>Fall 2017</option>
+  <select id="terms">
     <!--Fills with <option>'s for each available term-->
   </select>
 </div>
-  
-  
+
 <div class="main" id="accordion">
-  <h3 class="accordion-toggle">Find Classes</h3>
-  <div class="accordion-content" class="search" align="center">
+  <h3 class="accordion-toggle">+ Find Classes</h3>
+  <div class="accordion-content" id="search" align="center">
     <input type="text" id="searchBar" placeholder="Search...">
-    
+
     <div class="accordion-content" class="advancedSearch" id="accordion">
-      <h3 class="accordion-toggle" id="filterText"> <span class="downArrow">▾</span> Filters</h3>
-	  <div class="accordion-content">
+      <h3 class="accordion-toggle" id="filterText">+ Filters</h3>
+      <div class="accordion-content" id="filters">
         <ul>
           <p>Hello</p>
-		  <p>there</p>
-		  <p>future</p>
-		  <p>site,</p>
-		  <p>how</p>
-		  <p>you</p>
-		  <p>doin'?</p>
-		</ul>
-	  </div>
+          <p>there</p>
+          <p>future</p>
+          <p>site,</p>
+          <p>how</p>
+          <p>you</p>
+          <p>doin'?</p>
+        </ul>
+      </div>
+    </div>
+    
+    <div id="departments">
+      <!--Fills with <h3>'s & <div>'s for each department-->
     </div>
   </div>
-  
-  
-  <h3 class="accordion-toggle">Make Schedules</h3>
-  <div class="accordion-content" class="make">
+
+
+  <h3 class="accordion-toggle">+ Make Schedules</h3>
+  <div class="accordion-content" id="generator">
     <!-- TODO -->
   </div>
 </div>
