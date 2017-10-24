@@ -2,6 +2,7 @@ html {
   background-color: #f2f4e0;
 }
 
+
 .navbar {
   overflow: hidden;
   background-color: #444;
@@ -52,8 +53,13 @@ html {
   padding-right: 1.5em;
 }
 
-.main {
+
+.class-selection {
   margin-top: 5em; /* Added to avoid content overlay */
+  display: inline-block;
+  float: left;
+  margin-left: 1em;
+  width: 70%;
 }
 
 .accordion-toggle {
@@ -94,4 +100,26 @@ html {
 #filters {
   display: none;
   width: 40%;
+}
+
+
+.right-side {
+  margin-top: 5em; /* Added to avoid content overlay */
+}
+
+.shopping-cart {
+  float: right;
+  display: inline-block;
+  position: sticky;
+  width: 25%;
+  height: 30em;
+  margin-right: 1em;
+  border: 0.1em solid #006853;
+  border-radius: 0.3em;
+  background-color: #d7dabc;
+  color: #006853;
+}
+
+#generator-button {
+  
 }
