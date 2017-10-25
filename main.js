@@ -23,6 +23,7 @@ $(document).ready(function ($) {
     //Makes a course accordion if the course hasn't been added yet
     if ($("#departments div div h3:contains(" + eachClass.Title + ")").length === 0) {
       departments = eachClass.Course.substring(0, eachClass.Course.indexOf('-'));
+      console.log(departments);
       $('.' + departments + ' .courses').append('<div id="accordion"><h3 class="accordion-toggle">' + eachClass.Title + '</h3><div class="accordion-content" class="classes"></div></div>');
     }
     //Adds this specific class to its course accordion
