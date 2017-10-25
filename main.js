@@ -26,9 +26,9 @@ $(document).ready(function ($) {
       $('.' + departments + ' .courses').append('<div id="accordion"><h3 class="accordion-toggle">' + eachClass.Title + '</h3><div class="accordion-content" class="classes"></div></div>');
     }
     //Adds this specific class to its course accordion
-    $("h3:contains('" + eachClass.Title + "')").next().append('<ol class="class" id="' + eachClass.Course + '"></ol>');
+    $("#departments div div h3:contains('" + eachClass.Title + "')").next().append('<ol class="class" id="' + eachClass.Course + '"></ol>');
     Object.keys(eachClass).forEach(function (key) {
-      $("h3:contains('" + eachClass.Title + "')").append('<li class="' + key + '">' + eachClass.key + '</li>');
+      $("#departments div div h3:contains('" + eachClass.Title + "')").append('<li class="' + key + '">' + eachClass.key + '</li>');
     });
   });
 
