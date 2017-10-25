@@ -55,7 +55,6 @@ html {
 
 
 .class-selection {
-  margin-top: 5em; /* Added to avoid content overlay */
   display: inline-block;
   float: left;
   margin-left: 1em;
@@ -100,6 +99,10 @@ html {
 #filters {
   display: none;
   width: 40%;
+}
+
+#departments .accordion-toggle {
+  width: 85%;
 }
 
 
