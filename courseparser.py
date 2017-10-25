@@ -60,7 +60,11 @@ def parse_term(term):
         cleaned_class = {}
         for x in range(len(class_attributes)):
             cleaned_class[class_attributes[x]] = attributes[x]
-        cleaned_classes.append(cleaned_class)
+        if cleaned_class['Course'] == '':
+            cleaned_classes[-1]['next lines'] = cleaned_class
+        else:
+            cleaned_class['next lines'] = []
+            cleaned_classes.append(cleaned_class)
     save(term, cleaned_departments, cleaned_classes)
     print('Finished parsing: ' + term + '!')
 
