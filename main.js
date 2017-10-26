@@ -35,7 +35,7 @@ $(document).ready(function ($) {
     Object.keys(eachClass).forEach(function (key) {
       if (key === 'Instructor' && ratings[eachClass[key]] !== 'n/a') {
         $("#departments div div ." + sanitizedName + " span").append('<p class="' + key + '">' + key + ": " + eachClass[key] + ' (' + ratings[eachClass[key]] + '/5.0)</p>');
-      }else{
+      } else {
         $("#departments div div ." + sanitizedName + " span").append('<p class="' + key + '">' + key + ": " + eachClass[key] + '</p>');
       }
     });
