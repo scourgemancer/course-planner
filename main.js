@@ -38,8 +38,10 @@ $(document).ready(function ($) {
   //Adds functionality to the search bar
   $("#searchBar").keypress(function (event) {
     if (event.keyCode === 13) {
-      $('#departments div:visible').each(function () {
-        this.toggle();
+      $('#departments div:visible').each(function (index, element) {
+        
+        
+        element.toggle();
       });
     }
   });

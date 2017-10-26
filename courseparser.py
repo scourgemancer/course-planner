@@ -3,6 +3,7 @@
 import sys
 import bs4
 import time
+import requests
 import os
 import json
 from pathlib import Path
@@ -65,7 +66,16 @@ def parse_term(term):
         else:
             cleaned_class['next lines'] = []
             cleaned_classes.append(cleaned_class)
-    save(term, cleaned_departments, cleaned_classes)
+
+    # get the teacher ratings from ratemyprofessors.com
+    print('Getting ratings for professors...')
+    ratings = {}
+    for cleaned_class in cleaned_classes:
+      teacher = cleaned_class['Instructor']
+      rating = getRating(teacher)
+      ratings[teacher] = rating
+    print('Finished getting all available professor ratings!')
+    save(term, cleaned_departments, cleaned_classes, ratings)
     print('Finished parsing: ' + term + '!')
 
 
@@ -101,7 +111,35 @@ def get_master_schedule_html(term):
     return html
 
 
-def save(term_name, departments, classes):
+def getRating(teacher):
+  """Navigates to the ratemyprofessos.com page for the given teacher and returns their rating"""
+  names = teacher.split(', ')
+  url = 'http://www.ratemyprofessors.com/search.jsp?query=' + names[0] + '%2C+' + names[-1]
+  response = requests.get(url)
+  soup = bs4.BeautifulSoup(response.text, "html.parser")
+  professors = soup.select('.PROFESSOR')
+  if len(professors) > 0:
+    right_one = professors[0]
+    found_them = False
+    for professor in professors:
+      school = str(professor.select('.sub')[0].string)
+      if ', ' in school:
+        school = school.split(', ')[0]
+      if school == 'Skidmore College':
+        right_one = professor
+        found_them = True
+    if found_them:
+      link = 'http://www.ratemyprofessors.com' + right_one.select('a')[0].attrs['href']
+      response = requests.get(link)
+      soup = bs4.BeautifulSoup(response.text, "html.parser")
+      return str(soup.select('.grade')[0].string)
+    else:
+      return 'n/a'
+  else:
+    return 'n/a'
+
+
+def save(term_name, departments, classes, ratings):
     """Encodes provided data to a JSON format and then saves it to a file."""
     print('Saving data...')
     path = Path('data/' + term_name)
@@ -113,6 +151,9 @@ def save(term_name, departments, classes):
 
     with open(str(path) + '/classes.json', 'w') as file:
         json.dump(classes, file)
+
+    with open(str(path) + '/ratings.json', 'w') as file:
+        json.dump(ratings, file)
     print('Data saved!')
 
 
