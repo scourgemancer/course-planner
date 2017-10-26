@@ -105,6 +105,14 @@ html {
   width: 85%;
 }
 
+#departments .course {
+  width: 65%;
+}
+
+.class p {
+  line-height: 20%;
+}
+
 
 .right-side {
   margin-top: 5em; /* Added to avoid content overlay */
@@ -124,5 +132,5 @@ html {
 }
 
 #generator-button {
-  
+  float: right;
 }
