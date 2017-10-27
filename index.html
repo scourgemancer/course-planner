@@ -1,79 +1,81 @@
 <!doctype html>
 <html lang="en-US">
+
 <head>
   <meta charset="UTF-8">
   <meta name="description" content="Assembles schedules, from a list of classes, to fit your schedule and help plan out your next semester! Curently designed for use at Skidmore College.">
   <meta name="keywords" content="Skidmore,Skidmore College,Course Planner,Schedule Generator,Schedule Builder,Schedule,Builder,Schedule Maker,Generator,College,University,School">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Timothy Geary">
 
   <title>Course Planner</title>
 
-  <link type="text/css" rel="stylesheet" href="style.css"/>
+  <link type="text/css" rel="stylesheet" href="style.css" />
   <script src="jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="main.js"></script>
 </head>
 
 
 <body>
-<div class="navbar">
-  <h1>Course Planner</h1>
-  <p id="make">Make a Schedule</p>
-  <p id="find">Find Classes</p>
-  <select id="terms">
+  <div class="navbar">
+    <h1>Course Planner</h1>
+    <p id="make">Make a Schedule</p>
+    <p id="find">Find Classes</p>
+    <select id="terms">
     <!--Fills with <option>'s for each available term-->
   </select>
-</div>
+  </div>
 
 
-<div class="class-selection" id="accordion">
-  <h3 class="accordion-toggle">+ Find Classes</h3>
-  <div class="accordion-content" id="search" align="center">
-    <input type="text" id="searchBar" placeholder="Search...">
+  <div class="class-selection" id="accordion">
+    <h3 class="accordion-toggle">+ Find Classes</h3>
+    <div class="accordion-content" id="search" align="center">
+      <input type="text" id="searchBar" placeholder="Search...">
 
-    <div class="accordion-content" class="advancedSearch" id="accordion">
-      <h3 class="accordion-toggle" id="filterText">+ Filters</h3>
-      <div class="accordion-content" id="filters">
-        <ul>
-          <p>Hello</p>
-          <p>there</p>
-          <p>future</p>
-          <p>site,</p>
-          <p>how</p>
-          <p>you</p>
-          <p>doin'?</p>
-        </ul>
+      <div class="accordion-content" class="advancedSearch" id="accordion">
+        <h3 class="accordion-toggle" id="filterText">+ Filters</h3>
+        <div class="accordion-content" id="filters">
+          <ul>
+            <p>Hello</p>
+            <p>there</p>
+            <p>future</p>
+            <p>site,</p>
+            <p>how</p>
+            <p>you</p>
+            <p>doin'?</p>
+          </ul>
+        </div>
+      </div>
+
+      <div id="departments">
+        <!--Fills with <h3>'s & <div>'s for each department-->
       </div>
     </div>
-    
-    <div id="departments">
-      <!--Fills with <h3>'s & <div>'s for each department-->
+
+
+    <h3 class="accordion-toggle">+ Make Schedules</h3>
+    <div class="accordion-content" id="generator">
+      <!-- TODO -->
+      <ul>
+        <p>Hello</p>
+        <p>there</p>
+        <p>future</p>
+        <p>site,</p>
+        <p>how</p>
+        <p>you</p>
+        <p>doin'?</p>
+      </ul>
     </div>
   </div>
 
+  <div class="right-side">
+    <div class="shopping-cart">
 
-  <h3 class="accordion-toggle">+ Make Schedules</h3>
-  <div class="accordion-content" id="generator">
-    <!-- TODO -->
-    <ul>
-      <p>Hello</p>
-      <p>there</p>
-      <p>future</p>
-      <p>site,</p>
-      <p>how</p>
-      <p>you</p>
-      <p>doin'?</p>
-    </ul>
+    </div>
+
+
+    <button id="generator-button">Generate Schedules</button>
   </div>
-</div>
-
-<div class="right-side">
-  <div class="shopping-cart">
-    
-  </div>
-
-
-  <button id="generator-button">Generate Schedules</button>
-</div>
 </body>
+
 </html>

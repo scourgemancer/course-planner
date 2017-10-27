@@ -115,7 +115,8 @@ html {
 
 
 .right-side {
-  margin-top: 5em; /* Added to avoid content overlay */
+  margin-top: 5em;
+  /* Added to avoid content overlay */
 }
 
 .shopping-cart {
