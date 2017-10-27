@@ -39,7 +39,7 @@ html {
   margin-right: 1.7em;
 }
 
-.navbar select option {
+.navbar option {
   color: black;
   font-size: 0.8em;
 }
@@ -101,22 +101,22 @@ html {
   width: 40%;
 }
 
-#departments .accordion-toggle {
+#departments > .accordion-toggle {
   width: 85%;
 }
 
-#departments .course {
+#departments span {
   width: 85%;
 }
 
-.class p {
+.class > p {
   line-height: 20%;
 }
 
 
 .right-side {
-  margin-top: 5em;
   /* Added to avoid content overlay */
+  margin-top: 5em;
 }
 
 .shopping-cart {
