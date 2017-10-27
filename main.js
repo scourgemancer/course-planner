@@ -1,8 +1,8 @@
-/*global $, document*/ //<- is to appease JSLint
+/*global $, document*/
+/* eslint-env es6 */
 $(document).ready(function ($) {
   "use strict";
-  var terms, departments, ratings, classes, sanitizeName, sanitizedName;
-  sanitizeName = new RegExp(/[ .:#()\/\-&]/, 'g');
+  var terms, departments, ratings, classes;
 
   //Set all of the term options in the navbar
   terms = ["Fall 2017", "Summer 2017", "Spring 2017"];
@@ -69,7 +69,11 @@ $(document).ready(function ($) {
   };
   Object.keys(departments).forEach(function (key) {
     if (key !== "all") {
-      $('#departments').append('<div class="' + key + '" id="accordion"><h3 class="accordion-toggle">' + departments[key] + '</h3><div class="accordion-content courses"></div></div>');
+      $('#departments').append(
+        '<div class="' + key + '" id="accordion">' +
+        '<h3 class="accordion-toggle">' + departments[key] + '</h3>' +
+        '<div class="accordion-content courses"></div>' +
+        '</div>');
     }
   });
 
@@ -1855,23 +1859,31 @@ $(document).ready(function ($) {
     "next lines": []
   }];
   classes.forEach(function (eachClass) {
-    sanitizedName = eachClass.Title.replace(sanitizeName, '_');
+    let sanitizeName = new RegExp(/[ .:#()\/\-&]/, 'g');
+    let sanitizedName = eachClass.Title.replace(sanitizeName, '_');
 
     //Makes a course accordion if the course hasn't been added yet
-    if ($("#departments div div h3:contains(" + eachClass.Title + ")").length === 0) {
+    if ($("#departments > div > div > h3:contains(" + eachClass.Title + ")").length === 0) {
       departments = eachClass.Course.substring(0, eachClass.Course.indexOf('-'));
-      $('#departments .' + departments + ' .accordion-content').append('<div id="accordion"><h3 class="accordion-toggle">' + eachClass.Title + '</h3><div class="accordion-content course ' + sanitizedName + '"></div></div>');
+      $('#departments > .' + departments + ' > .accordion-content').append(
+        '<div id="accordion">' +
+        '<h3 class="accordion-toggle">' + eachClass.Title + '</h3>' +
+        '<div class="accordion-content course ' + sanitizedName + '"></div>' +
+        '</div>');
     }
     //Adds this specific class to its course accordion
-    $("#departments div div ." + sanitizedName).append('<span class="class" id="' + sanitizedName + '"></span>');
+    $("#departments > div > div > ." + sanitizedName).append('<span class="class" id="' + sanitizedName + '"></span>');
     Object.keys(eachClass).forEach(function (key) {
       if (key === 'Instructor' && ratings[eachClass[key]] !== 'n/a') {
-        $("#departments div div ." + sanitizedName + " span").append('<p class="' + key + '">' + key + ": " + eachClass[key] + ' (' + ratings[eachClass[key]] + '/5.0)</p>');
+        $("#departments > div > div > ." + sanitizedName + " > span").append(
+          '<p class="' + key + '">' + key + ": " + eachClass[key] + ' (' + ratings[eachClass[key]] + '/5.0)</p>');
       } else {
-        $("#departments div div ." + sanitizedName + " span").append('<p class="' + key + '">' + key + ": " + eachClass[key] + '</p>');
+        $("#departments > div > div > ." + sanitizedName + " > span").append(
+          '<p class="' + key + '">' + key + ": " + eachClass[key] + '</p>');
       }
     });
   });
+
   //Hides any departments that don't have any classes for the selected term
   $('#department').each(function () {
     if (this.find('.course').length === 0) {
