@@ -70,7 +70,7 @@ $(document).ready(function ($) {
   Object.keys(departments).forEach(function (key) {
     if (key !== "all") {
       $('#departments').append(
-        '<div class="' + key + '" id="accordion">' +
+        '<div class="department ' + key + '" id="accordion">' +
         '<h3 class="accordion-toggle">' + departments[key] + '</h3>' +
         '<div class="accordion-content courses"></div>' +
         '</div>');
@@ -1861,33 +1861,38 @@ $(document).ready(function ($) {
   classes.forEach(function (eachClass) {
     let sanitizeName = new RegExp(/[ .:#()\/\-&]/, 'g');
     let sanitizedName = eachClass.Title.replace(sanitizeName, '_');
+    let sanitizedCRN = eachClass.CRN.replace(sanitizeName, '_');
 
     //Makes a course accordion if the course hasn't been added yet
-    if ($("#departments > div > div > h3:contains(" + eachClass.Title + ")").length === 0) {
+    if ($(".course > h3:contains(" + eachClass.Title + ")").length === 0) {
       departments = eachClass.Course.substring(0, eachClass.Course.indexOf('-'));
-      $('#departments > .' + departments + ' > .accordion-content').append(
-        '<div id="accordion">' +
+      $('.' + departments + ' > .accordion-content').append(
+        '<div class="course" id="accordion">' +
         '<h3 class="accordion-toggle">' + eachClass.Title + '</h3>' +
-        '<div class="accordion-content course ' + sanitizedName + '"></div>' +
+        '<div class="accordion-content classes ' + sanitizedName + '"></div>' +
         '</div>');
     }
     //Adds this specific class to its course accordion
-    $("#departments > div > div > ." + sanitizedName).append('<span class="class" id="' + sanitizedName + '"></span>');
+    $("." + sanitizedName).append('<table class="class" id="' + sanitizedCRN + '"></table>');
     Object.keys(eachClass).forEach(function (key) {
       if (key === 'Instructor' && ratings[eachClass[key]] !== 'n/a') {
-        $("#departments > div > div > ." + sanitizedName + " > span").append(
-          '<p class="' + key + '">' + key + ": " + eachClass[key] + ' (' + ratings[eachClass[key]] + '/5.0)</p>');
+        $("#" + sanitizedCRN).append(
+          '<tr class="' + key + '">' +
+          '<th>' + key + "</th><td>" + eachClass[key] + ' (' + ratings[eachClass[key]] + '/5.0)</td>' +
+          '</tr>');
       } else {
-        $("#departments > div > div > ." + sanitizedName + " > span").append(
-          '<p class="' + key + '">' + key + ": " + eachClass[key] + '</p>');
+        $("#" + sanitizedCRN).append(
+          '<tr class="' + key + '">' +
+          '<th>' + key + "</th><td>" + eachClass[key] + '</td>' +
+          '</tr>');
       }
     });
   });
 
   //Hides any departments that don't have any classes for the selected term
-  $('#department').each(function () {
-    if (this.find('.course').length === 0) {
-      this.style.display = 'none';
+  $('.departments').each(function (index, element) {
+    if (element.find('.course').length === 0) {
+      element.style.display = 'none';
     }
   });
 
@@ -1897,7 +1902,7 @@ $(document).ready(function ($) {
       $('#departments div:visible').each(function (index, element) {
 
 
-        element.toggle();
+        element.slideToggle();
       });
     }
   });

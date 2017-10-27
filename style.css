@@ -9,12 +9,14 @@ html {
   position: fixed;
   top: 0;
   width: 100%;
+  max-height: 4.1em;
 }
 
 .navbar h1 {
   float: left;
   position: relative;
   margin-left: 0.8em;
+  margin-bottom: 0;
   font-size: 1.7em;
   transform: scaleY(1.5);
   color: white;
@@ -55,10 +57,11 @@ html {
 
 
 .class-selection {
+  margin-top: 4.5em;
   display: inline-block;
   float: left;
-  margin-left: 1em;
-  width: 70%;
+  margin-left: 5%;
+  width: 60%;
 }
 
 .accordion-toggle {
@@ -67,7 +70,8 @@ html {
   border-radius: 0.3em;
   background-color: #d7dabc;
   color: #006853;
-  padding-left: 0.4em;
+  padding: 0.1em 0% 0.1em 0.4em;
+  margin-top: 0;
 }
 
 .accordion-content.default {
@@ -79,6 +83,8 @@ html {
 }
 
 #searchBar {
+  display: block;
+  margin: auto;
   background-image: url("./searchIcon.png");
   background-repeat: no-repeat;
   background-position: 0.5em;
@@ -90,6 +96,8 @@ html {
 }
 
 #filterText {
+  margin-top: 2%;
+  margin-bottom: 2%;
   font-size: 1em;
   border: 0em;
   background-color: transparent;
@@ -101,37 +109,61 @@ html {
   width: 40%;
 }
 
-#departments > .accordion-toggle {
+#departments {
+  margin-bottom: 7%;
+}
+
+#departments .accordion-toggle {
   width: 85%;
 }
 
-#departments span {
+.courses {
+  display: none;
   width: 85%;
 }
 
-.class > p {
-  line-height: 20%;
+.classes table {
+  margin-bottom: 5%;
+  border-collapse: collapse;
+}
+
+.classes tr:nth-child(even) {
+  background-color: #e3e5d0
+}
+
+.classes th, .classes td {
+  padding: 0.3em 1em;
+  border: 0.1em solid black;
+}
+
+#generator {
+  display: none;
 }
 
 
 .right-side {
-  /* Added to avoid content overlay */
   margin-top: 5em;
+  position: fixed;
+  top: 0;
+  right: 2.5%;
+  width: 25%;
 }
 
 .shopping-cart {
   float: right;
-  display: inline-block;
-  position: sticky;
-  width: 25%;
+  width: 100%;
   height: 30em;
-  margin-right: 1em;
   border: 0.1em solid #006853;
   border-radius: 0.3em;
   background-color: #d7dabc;
   color: #006853;
+  margin-bottom: 10%;
 }
 
 #generator-button {
-  float: right;
+  margin: 0 auto;
+  display: block;
+  padding: 3% 7% 3% 7%;
+  font-size: 1.2em;
+  line-height: 1.2em;
 }
