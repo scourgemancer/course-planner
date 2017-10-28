@@ -1891,7 +1891,7 @@ $(document).ready(function ($) {
 
   //Hides any departments that don't have any classes for the selected term
   $('.department').css('display', 'none');
-  $('.department .courses:parent').parent().css('display', 'block');
+  $('.department').has('.course').css('display', 'block');
 
   //Adds functionality to the search bar
   $("#searchBar").keypress(function (event) {
