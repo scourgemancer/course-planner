@@ -1894,14 +1894,24 @@ $(document).ready(function ($) {
   $('.department').has('.course').css('display', 'block');
 
   //Adds functionality to the search bar
-  $("#searchBar").keypress(function (event) {
-    if (event.keyCode === 13) {
-      $('#departments div:visible').each(function (index, element) {
-
-
-        element.slideToggle();
-      });
-    }
+  $("#searchBar").keydown(function () {
+    //Only shows courses that have the search in their names
+    let search = document.getElementById("searchBar").value;
+    $('.course').each(function () {
+      if ($(this).children('h3:contains("' + search + '")').length > 0) {
+        $(this).css('display', 'block');
+      } else {
+        $(this).css('display', 'none');
+      }
+    });
+    //Only shows departments that have the search in their name or have courses still visible
+    $('.department').each(function () {
+      if ($(this).children('h3:contains("' + search + '")').length > 0 || $(this).has('.course:visible').length > 0) {
+        $(this).css('display', 'block');
+      } else {
+        $(this).css('display', 'none');
+      }
+    });
   });
 
   //Adds the expected functionality for the accordions w/o needing the large jQuery file
