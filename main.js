@@ -1890,11 +1890,8 @@ $(document).ready(function ($) {
   });
 
   //Hides any departments that don't have any classes for the selected term
-  $('.departments').each(function (index, element) {
-    if (element.find('.course').length === 0) {
-      element.style.display = 'none';
-    }
-  });
+  $('.department').css('display', 'none');
+  $('.department .courses:parent').parent().css('display', 'block');
 
   //Adds functionality to the search bar
   $("#searchBar").keypress(function (event) {
