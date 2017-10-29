@@ -119,8 +119,9 @@ function getRatings() {
     "Opitz, Lawrence": "n/a",
     "Coordinator, Unit": "n/a"
   };
+}
 
-function getClasses () {
+function getClasses() {
   return [{
     "Session": "SS3",
     "Course": "CH-221 001",
