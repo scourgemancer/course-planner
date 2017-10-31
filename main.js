@@ -42,10 +42,13 @@ $(document).ready(function ($) {
     //Adds this specific class to its course accordion
     $("." + sanitizedName).append('<table class="class" id="' + sanitizedCRN + '"></table>');
     Object.keys(eachClass).forEach(function (key) {
-      if (key === 'Instructor' && ratings[eachClass[key]] !== 'n/a') {
+      if (key === 'Instructor' && eachClass[key] in ratings && ratings[eachClass[key]][0] !== 'n/a') {
         $("#" + sanitizedCRN).append(
           '<tr class="' + key + '">' +
-          '<th>' + key + "</th><td>" + eachClass[key] + ' (' + ratings[eachClass[key]] + '/5.0)</td>' +
+          '<th>' + key + '</th>' +
+          '<td>' + eachClass[key] + ' <a target="_blank" href="' + ratings[eachClass[key]][1] + '">' +
+          '(' + ratings[eachClass[key]][0] + '/5.0)' +
+          '</a></td>' +
           '</tr>');
       } else {
         $("#" + sanitizedCRN).append(

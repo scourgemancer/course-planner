@@ -2,12 +2,12 @@
 """courseparser.py - Parses data from the Skidmore Master Schedule and saves it as JSON strings"""
 import sys
 import bs4
-import time
 import requests
 import os
 import json
 from pathlib import Path
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 
 def parse_all():
@@ -16,15 +16,24 @@ def parse_all():
     driver = webdriver.Firefox()  # opens Firefox
     driver.get('https://www2.skidmore.edu/studentsystem/masterSchedule/index.cfm')
     try:  # get all of the available terms
-        terms_container = driver.find_element_by_id('term_code')
-        terms = terms_container.find_elements_by_tag_name('option')
-        terms = [term.text for term in terms]
+        terms_container = driver.find_element_by_id('s2id_txt_term')
+        terms = []
+        current_term = ''
+        while current_term not in terms:
+            if current_term != '':
+                terms.append(current_term)
+            terms_container.click()
+            terms_container.send_keys(Keys.ENTER)
+            for i in range(len(terms)):
+                terms_container.send_keys(Keys.DOWN)
+            current_term = driver.find_element_by_id('select2-chosen-1')
         driver.quit()
-        with open('data/' + '/terms.json', 'w') as file:
+        with open('data/terms.json', 'w') as file:
             json.dump(terms, file)
         print('Parsing terms:')
         for term in terms:
-            parse_term(term)  # parses each term one-by-one
+            #parse_term(term)  # parses each term one-by-one
+            print(term)
         print('Finished parsing all available terms!')
     except:
         print('Contact a developer: The course website has changed and this program needs to be updated')
@@ -132,11 +141,11 @@ def getRating(teacher):
       link = 'http://www.ratemyprofessors.com' + right_one.select('a')[0].attrs['href']
       response = requests.get(link)
       soup = bs4.BeautifulSoup(response.text, "html.parser")
-      return str(soup.select('.grade')[0].string)
+      return [str(soup.select('.grade')[0].string), link]
     else:
-      return 'n/a'
+      return ['n/a']
   else:
-    return 'n/a'
+    return ['n/a']
 
 
 def save(term_name, departments, classes, ratings):
