@@ -1,18 +1,18 @@
 /*global $, document, getDepartments, getRatings, getClasses*/
 /* eslint-env es6 */
-$(document).ready(function ($) {
+$(document).ready(function addContent($) {
   "use strict";
   var terms, departments, ratings, classes;
 
   //Set all of the term options in the navbar
   terms = ["Fall 2017", "Summer 2017", "Spring 2017"];
-  terms.forEach(function (term) {
+  terms.forEach(function addTerms(term) {
     $('#terms').append('<option>' + term + '</option>');
   });
 
   //Sets an accordion for each department
   departments = getDepartments();
-  Object.keys(departments).forEach(function (key) {
+  Object.keys(departments).forEach(function addDepartments(key) {
     if (key !== "all") {
       $('#departments').append(
         '<div class="department ' + key + '" id="accordion">' +
@@ -25,7 +25,7 @@ $(document).ready(function ($) {
   //Populates each department with the classes they're composed of
   ratings = getRatings();
   classes = getClasses();
-  classes.forEach(function (eachClass) {
+  classes.forEach(function addClasses(eachClass) {
     let sanitizeName = new RegExp(/[ .:#()\/\-&]/, 'g');
     let sanitizedName = eachClass.Title.replace(sanitizeName, '_');
     let sanitizedCRN = eachClass.CRN.replace(sanitizeName, '_');
@@ -41,14 +41,14 @@ $(document).ready(function ($) {
     }
     //Adds this specific class to its course accordion
     $("." + sanitizedName).append('<table class="class" id="' + sanitizedCRN + '"></table>');
-    Object.keys(eachClass).forEach(function (key) {
+    Object.keys(eachClass).forEach(function addClass(key) {
       if (key === 'Instructor' && eachClass[key] in ratings && ratings[eachClass[key]][0] !== 'n/a') {
         $("#" + sanitizedCRN).append(
           '<tr class="' + key + '">' +
           '<th>' + key + '</th>' +
-          '<td>' + eachClass[key] + ' <a target="_blank" href="' + ratings[eachClass[key]][1] + '">' +
-          '(' + ratings[eachClass[key]][0] + '/5.0)' +
-          '</a></td>' +
+          '<td>' + eachClass[key] + ' (<a target="_blank" href="' + ratings[eachClass[key]][1] + '">' +
+          '' + ratings[eachClass[key]][0] + '/5.0' +
+          '</a>)</td>' +
           '</tr>');
       } else {
         $("#" + sanitizedCRN).append(
@@ -64,28 +64,33 @@ $(document).ready(function ($) {
   $('.department').has('.course').css('display', 'block');
 
   //Adds functionality to the search bar
-  $("#searchBar").keydown(function () {
-    //Only shows courses that have the search in their names
+  $("#searchBar").keydown(function searchContent() {
     let search = document.getElementById("searchBar").value;
-    $('.course').each(function () {
-      if ($(this).children('h3:contains("' + search + '")').length > 0) {
-        $(this).css('display', 'block');
-      } else {
-        $(this).css('display', 'none');
-      }
-    });
-    //Only shows departments that have the search in their name or have courses still visible
-    $('.department').each(function () {
-      if ($(this).children('h3:contains("' + search + '")').length > 0 || $(this).has('.course:visible').length > 0) {
-        $(this).css('display', 'block');
-      } else {
-        $(this).css('display', 'none');
-      }
-    });
+    if (search !== '') {
+      $('.course').each(function searchCourses() {
+        if ($(this).children('h3').text().toLowerCase().indexOf(search.toLowerCase()) !== -1) {
+          $(this).css('display', 'block');
+        } else {
+          $(this).css('display', 'none');
+        }
+      });
+      $('.department').each(function searchDepartments() {
+        if ($(this).children('h3').text().toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+          $(this).has('.course:visible').length > 0) {
+          $(this).css('display', 'block');
+        } else {
+          $(this).css('display', 'none');
+        }
+      });
+    } else {
+      $('.course').css('display', 'none');
+      $('.department').css('display', 'none');
+      $('.department').has('.course').css('display', 'block');
+    }
   });
 
   //Adds the expected functionality for the accordions w/o needing the large jQuery file
-  $('#accordion').find('.accordion-toggle').click(function () {
+  $('#accordion').find('.accordion-toggle').click(function toggle() {
     $(this).next().slideToggle('fast');
   });
 });
