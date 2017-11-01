@@ -75,8 +75,7 @@ $(document).ready(function addContent($) {
         }
       });
       $('.department').each(function searchDepartments() {
-        if ($(this).children('h3').text().toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-          $(this).has('.course:visible').length > 0) {
+        if ($(this).has('.course:visible').length > 0) {
           $(this).css('display', 'block');
         } else {
           $(this).css('display', 'none');
