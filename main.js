@@ -7,8 +7,9 @@ $(document).ready(function addContent($) {
   getTerms().forEach(function addTerms(term) {
     $('#terms').append('<option>' + term + '</option>');
   });
+  $('#terms').change(populateWithTermData(getDepartments(), getClasses(), getRatings()));
 
-  addTermData(getDepartments(), getClasses(), getRatings());
+  populateWithTermData(getDepartments(), getClasses(), getRatings());
 
   //Adds functionality to the search bar
   $("#searchBar").keydown(function searchContent() {
@@ -43,7 +44,11 @@ $(document).ready(function addContent($) {
 
 
 //Takes in a term's departments, classes, and ratings then populates the page with it
-function addTermData(departments, classes, ratings) {
+function populateWithTermData(departments, classes, ratings) {
+  "use strict";
+
+  clearTermData();
+
   //Sets an accordion for each department
   Object.keys(departments).forEach(function addDepartments(key) {
     if (key !== "all") {
@@ -93,4 +98,10 @@ function addTermData(departments, classes, ratings) {
   //Hides any departments that don't have any classes for the selected term
   $('.department').css('display', 'none');
   $('.department').has('.course').css('display', 'block');
+}
+
+function clearTermData() {
+  "use strict";
+
+  $('#departments').empty();
 }
