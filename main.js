@@ -1,17 +1,50 @@
-/*global $, document, getDepartments, getRatings, getClasses*/
+/*global $, document, getTerms, getDepartments, getRatings, getClasses*/
 /* eslint-env es6 */
 $(document).ready(function addContent($) {
   "use strict";
-  var terms, departments, ratings, classes;
 
   //Set all of the term options in the navbar
-  terms = ["Fall 2017", "Summer 2017", "Spring 2017"];
-  terms.forEach(function addTerms(term) {
+  getTerms().forEach(function addTerms(term) {
     $('#terms').append('<option>' + term + '</option>');
   });
 
+  addTermData(getDepartments(), getClasses(), getRatings());
+
+  //Adds functionality to the search bar
+  $("#searchBar").keydown(function searchContent() {
+    let search = document.getElementById("searchBar").value;
+    if (search !== '') {
+      $('.course').each(function searchCourses() {
+        if ($(this).children('h3').text().toLowerCase().indexOf(search.toLowerCase()) !== -1) {
+          $(this).css('display', 'block');
+        } else {
+          $(this).css('display', 'none');
+        }
+      });
+      $('.department').each(function searchDepartments() {
+        if ($(this).has('.course:visible').length > 0) {
+          $(this).css('display', 'block');
+        } else {
+          $(this).css('display', 'none');
+        }
+      });
+    } else {
+      $('.course').css('display', 'none');
+      $('.department').css('display', 'none');
+      $('.department').has('.course').css('display', 'block');
+    }
+  });
+
+  //Adds the expected functionality for the accordions w/o needing the large jQuery file
+  $('#accordion').find('.accordion-toggle').click(function toggle() {
+    $(this).next().slideToggle('fast');
+  });
+});
+
+
+//Takes in a term's departments, classes, and ratings then populates the page with it
+function addTermData(departments, classes, ratings) {
   //Sets an accordion for each department
-  departments = getDepartments();
   Object.keys(departments).forEach(function addDepartments(key) {
     if (key !== "all") {
       $('#departments').append(
@@ -23,8 +56,6 @@ $(document).ready(function addContent($) {
   });
 
   //Populates each department with the classes they're composed of
-  ratings = getRatings();
-  classes = getClasses();
   classes.forEach(function addClasses(eachClass) {
     let sanitizeName = new RegExp(/[ .:#()\/\-&]/, 'g');
     let sanitizedName = eachClass.Title.replace(sanitizeName, '_');
@@ -62,34 +93,4 @@ $(document).ready(function addContent($) {
   //Hides any departments that don't have any classes for the selected term
   $('.department').css('display', 'none');
   $('.department').has('.course').css('display', 'block');
-
-  //Adds functionality to the search bar
-  $("#searchBar").keydown(function searchContent() {
-    let search = document.getElementById("searchBar").value;
-    if (search !== '') {
-      $('.course').each(function searchCourses() {
-        if ($(this).children('h3').text().toLowerCase().indexOf(search.toLowerCase()) !== -1) {
-          $(this).css('display', 'block');
-        } else {
-          $(this).css('display', 'none');
-        }
-      });
-      $('.department').each(function searchDepartments() {
-        if ($(this).has('.course:visible').length > 0) {
-          $(this).css('display', 'block');
-        } else {
-          $(this).css('display', 'none');
-        }
-      });
-    } else {
-      $('.course').css('display', 'none');
-      $('.department').css('display', 'none');
-      $('.department').has('.course').css('display', 'block');
-    }
-  });
-
-  //Adds the expected functionality for the accordions w/o needing the large jQuery file
-  $('#accordion').find('.accordion-toggle').click(function toggle() {
-    $(this).next().slideToggle('fast');
-  });
-});
+}
