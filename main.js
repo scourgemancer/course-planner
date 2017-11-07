@@ -1,8 +1,7 @@
 /*global $, document, getTerms, getDepartments, getRatings, getClasses*/
 /* eslint-env es6 */
+"use strict";
 $(document).ready(function addContent($) {
-  "use strict";
-
   //Set all of the term options in the navbar
   getTerms().forEach(function addTerms(term) {
     $('#terms').append('<option>' + term + '</option>');
@@ -45,8 +44,6 @@ $(document).ready(function addContent($) {
 
 //Takes in a term's departments, classes, and ratings then populates the page with it
 function populateWithTermData(departments, classes, ratings) {
-  "use strict";
-
   clearTermData();
 
   //Sets an accordion for each department
@@ -101,7 +98,5 @@ function populateWithTermData(departments, classes, ratings) {
 }
 
 function clearTermData() {
-  "use strict";
-
   $('#departments').empty();
 }
