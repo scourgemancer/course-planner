@@ -1,5 +1,6 @@
-html {
+html, body {
   background-color: #f2f4e0;
+  margin: 0;
 }
 
 
