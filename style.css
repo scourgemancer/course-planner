@@ -16,7 +16,7 @@ html, body {
 .navbar h1 {
   float: left;
   position: relative;
-  margin-left: 0.8em;
+  margin-left: 1.2em;
   margin-bottom: 0;
   font-size: 1.7em;
   transform: scaleY(1.5);
