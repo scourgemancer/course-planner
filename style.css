@@ -61,8 +61,8 @@ html, body {
   margin-top: 5.3em;
   display: inline-block;
   float: left;
-  margin-left: 5%;
-  width: 60%;
+  margin-left: 3.5%;
+  width: 65%;
 }
 
 .accordion-toggle {
@@ -150,14 +150,14 @@ html, body {
   margin-top: 5em;
   position: fixed;
   top: 0;
-  right: 2.5%;
+  right: 3%;
   width: 25%;
 }
 
 .shopping-cart {
   float: right;
   width: 100%;
-  height: 30em;
+  height: 25em;
   border: 0.1em solid #006853;
   border-radius: 0.3em;
   background-color: #d7dabc;
